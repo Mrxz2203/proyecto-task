@@ -1,0 +1,176 @@
+/* ============================================================
+   Archivo: src/pages/Dashboard/TaskModal.css
+   ============================================================ */
+
+:root {
+  --bg:       #0F1117;
+  --surface:  #1A1D27;
+  --border:   rgba(255,255,255,0.08);
+  --accent:   #6C63FF;
+  --red:      #FF5E7D;
+  --yellow:   #FFB547;
+  --green:    #00D4AA;
+  --text:     #EEEEF5;
+  --text-sub: #7B7FA8;
+  --error:    #FF5E7D;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid rgba(108,99,255,0.3);
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  animation: slideUp 0.25s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.modal-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.modal-close {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: none;
+  color: var(--text-sub);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.12); }
+
+.modal-field { margin-bottom: 18px; }
+
+.modal-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-sub);
+  margin-bottom: 7px;
+}
+
+.modal-input,
+.modal-textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  resize: none;
+  transition: border-color 0.2s;
+}
+.modal-input::placeholder,
+.modal-textarea::placeholder { color: var(--text-sub); }
+.modal-input:focus,
+.modal-textarea:focus { border-color: var(--accent); }
+.modal-input.error,
+.modal-textarea.error { border-color: var(--error); }
+
+.modal-error {
+  display: block;
+  font-size: 11px;
+  color: var(--error);
+  margin-top: 4px;
+}
+
+/* Pills de estado */
+.modal-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.modal-pill {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.2s;
+  background: transparent;
+}
+.modal-pill.active { opacity: 1; }
+.modal-pill.pendiente   { border-color: var(--red);    color: var(--red); }
+.modal-pill.en-progreso { border-color: var(--yellow); color: var(--yellow); }
+.modal-pill.completado  { border-color: var(--green);  color: var(--green); }
+
+/* Botones */
+.modal-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.modal-btn-cancel {
+  padding: 11px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-btn-cancel:hover { background: rgba(255,255,255,0.09); }
+
+.modal-btn-save {
+  padding: 11px;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.modal-btn-save:hover { background: #5A52E0; transform: translateY(-1px); }
