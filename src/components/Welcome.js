@@ -57,7 +57,7 @@ function Welcome() {
             <span className="title-accent2">y foco</span>
           </h1>
           <p className="welcome-desc">
-            TaskHelp te ayuda a organizar, priorizar
+            HelpTask te ayuda a organizar, priorizar
             y completar tus tareas diarias de forma
             visual e intuitiva. Tu productividad,
             transformada.
@@ -80,36 +80,44 @@ function Welcome() {
       {/* ══════════════════════════════
           FEATURES STRIP
           ══════════════════════════════ */}
-      <div className="welcome-features" id="features">
-        <div className="feature-item">
-          <span className="feature-icon">📋</span>
-          <div className="feature-text">
-            <strong>Kanban Visual</strong>
-            3 estados en tiempo real
-          </div>
-        </div>
-        <div className="feature-item">
-          <span className="feature-icon">🔐</span>
-          <div className="feature-text">
-            <strong>Autenticación</strong>
-            Login seguro con JWT
-          </div>
-        </div>
-        <div className="feature-item">
-          <span className="feature-icon">⚡</span>
-          <div className="feature-text">
-            <strong>Rápido y simple</strong>
-            Crea tareas en segundos
-          </div>
-        </div>
-        <div className="feature-item">
-          <span className="feature-icon">🎯</span>
-          <div className="feature-text">
-            <strong>Tu espacio</strong>
-            Solo ves tus tareas
-          </div>
-        </div>
-      </div>
+     <div className="welcome-features" id="features">
+  <div className="feature-item">
+    <span className="feature-icon">
+      <img src={require("../assets/kanban.png")} alt="kanban" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
+    </span>
+    <div className="feature-text">
+      <strong>Kanban Visual</strong>
+      3 estados en tiempo real
+    </div>
+  </div>
+  <div className="feature-item">
+    <span className="feature-icon">
+      <img src={require("../assets/auth.png")} alt="auth" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
+    </span>
+    <div className="feature-text">
+      <strong>Autenticación</strong>
+      Login seguro con JWT
+    </div>
+  </div>
+  <div className="feature-item">
+    <span className="feature-icon">
+      <img src={require("../assets/rapido.png")} alt="rapido" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
+    </span>
+    <div className="feature-text">
+      <strong>Rápido y simple</strong>
+      Crea tareas en segundos
+    </div>
+  </div>
+  <div className="feature-item">
+    <span className="feature-icon">
+      <img src={require("../assets/espacio.png")} alt="espacio" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
+    </span>
+    <div className="feature-text">
+      <strong>Tu espacio</strong>
+      Solo ves tus tareas
+    </div>
+  </div>
+</div>
 <Footer />
     </div>
 

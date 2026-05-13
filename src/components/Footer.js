@@ -13,28 +13,6 @@ function Footer() {
     <footer className="footer-wrapper">
 
       {/* ══════════════════════════════
-          NAVBAR
-          ══════════════════════════════ */}
-      <nav className="footer-nav">
-        <div className="footer-nav-logo" onClick={() => navigate("/")}>
-          Help<span>Task</span>
-        </div>
-        <div className="footer-nav-links">
-          <span className="footer-nav-link">Acerca de</span>
-          <span className="footer-nav-link">Características</span>
-          <span className="footer-nav-link">Contacto</span>
-        </div>
-        <div className="footer-nav-btns">
-          <button className="footer-btn-ghost" onClick={() => navigate("/login")}>
-            Iniciar Sesion
-          </button>
-          <button className="footer-btn-solid" onClick={() => navigate("/register")}>
-            Empezar →
-          </button>
-        </div>
-      </nav>
-
-      {/* ══════════════════════════════
           CUERPO FOOTER
           ══════════════════════════════ */}
       <div className="footer-body">
@@ -49,8 +27,6 @@ function Footer() {
             Diseñado para personas que quieren hacer más con
             menos esfuerzo.
           </p>
-
-          
         </div>
 
         {/* RIGHT — Imagen dev.png */}
@@ -69,7 +45,7 @@ function Footer() {
           ══════════════════════════════ */}
       <div className="footer-bottom">
         <p className="footer-copy">
-          © 2026 TaskFlow. Todos los derechos reservados.
+          © 2026 HelpTask. Todos los derechos reservados.
         </p>
         <div className="footer-bottom-links">
           <span className="footer-bottom-link">Términos</span>
