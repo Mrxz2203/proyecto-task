@@ -3,20 +3,14 @@
 //  Descripción: Footer — HelpTask
 // ============================================================
 
-
+import "./Footer.css";
 
 function Footer() {
-  const navigate = useNavigate();
-
   return (
     <footer className="footer-wrapper">
 
-      {/* ══════════════════════════════
-          CUERPO FOOTER
-          ══════════════════════════════ */}
       <div className="footer-body">
 
-        {/* LEFT — Info */}
         <div className="footer-info">
           <div className="footer-logo">
             Help<span>Task</span>
@@ -28,7 +22,6 @@ function Footer() {
           </p>
         </div>
 
-        {/* RIGHT — Imagen dev.png */}
         <div className="footer-img-wrap">
           <img
             src={require("../assets/dev.png")}
@@ -39,9 +32,6 @@ function Footer() {
 
       </div>
 
-      {/* ══════════════════════════════
-          BOTTOM BAR
-          ══════════════════════════════ */}
       <div className="footer-bottom">
         <p className="footer-copy">
           © 2026 HelpTask. Todos los derechos reservados.
