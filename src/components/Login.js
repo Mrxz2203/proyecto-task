@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import Header from "./Header";
 
 function Login() {
   const navigate = useNavigate();
@@ -52,19 +53,7 @@ function Login() {
   return (
     <div className="auth-wrapper">
 
-      {/* NAVBAR */}
-      <nav className="auth-nav">
-        <div className="auth-nav-logo" onClick={() => navigate("/")}>Help<span>Task</span></div>
-        <div className="auth-nav-links">
-          <span className="auth-nav-link">Acerca de</span>
-          <span className="auth-nav-link">Características</span>
-          <span className="auth-nav-link">Contacto</span>
-        </div>
-        <div className="auth-nav-btns">
-          <button className="auth-btn-ghost" onClick={() => navigate("/login")}>Iniciar Sesion</button>
-          <button className="auth-btn-solid" onClick={() => navigate("/register")}>Empezar →</button>
-        </div>
-      </nav>
+      <Header />
 
       {/* CONTENIDO */}
       <div className="auth-body">

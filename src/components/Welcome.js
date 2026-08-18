@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./Welcome.css";
 import Footer from "./Footer";
 import Section from "./Section";
+import Header from "./Header";
 
 const steps = [
   { n: "01", label: "Por hacer", state: "todo", text: "Anota lo que tienes que hacer, sin fricción." },
@@ -27,25 +28,7 @@ function Welcome() {
   return (
     <div className="welcome-wrapper">
 
-      {/* NAVBAR */}
-      <nav className="welcome-nav">
-        <div className="welcome-nav-logo">
-          Help<span>Task</span>
-        </div>
-        <div className="welcome-nav-links">
-          <a href="#proceso" className="welcome-nav-link">Cómo funciona</a>
-          <a href="#features" className="welcome-nav-link">Características</a>
-          <a href="#contacto" className="welcome-nav-link">Contacto</a>
-        </div>
-        <div className="welcome-nav-btns">
-          <button className="welcome-btn-ghost" onClick={() => navigate("/login")}>
-            Iniciar sesión
-          </button>
-          <button className="welcome-btn-solid" onClick={() => navigate("/register")}>
-            Empezar →
-          </button>
-        </div>
-      </nav>
+      <Header />
 
       {/* HERO */}
       <section className="welcome-hero">

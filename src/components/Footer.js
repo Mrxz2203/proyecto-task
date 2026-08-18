@@ -7,7 +7,7 @@ import "./Footer.css";
 
 function Footer() {
   return (
-    <footer className="footer-wrapper">
+    <footer className="footer-wrapper" id="contacto">
       <div className="footer-bottom">
         <div className="footer-logo-mini">
           Help<span>Task</span>
@@ -19,6 +19,7 @@ function Footer() {
           <span className="footer-bottom-link">Términos</span>
           <span className="footer-bottom-link">Privacidad</span>
           <span className="footer-bottom-link">Contacto</span>
+
         </div>
       </div>
     </footer>
