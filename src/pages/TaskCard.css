@@ -1,17 +1,6 @@
 /* ============================================================
-   Archivo: src/pages/Dashboard/TaskCard.css
+   Archivo: src/pages/TaskCard.css
    ============================================================ */
-
-:root {
-  --accent:   #6C63FF;
-  --red:      #FF5E7D;
-  --yellow:   #FFB547;
-  --green:    #00D4AA;
-  --surface2: #22263A;
-  --border:   rgba(255,255,255,0.08);
-  --text:     #EEEEF5;
-  --text-sub: #7B7FA8;
-}
 
 .taskcard {
   background: var(--surface2);
@@ -26,12 +15,12 @@
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
-.taskcard.pendiente   { border-left-color: var(--red); }
-.taskcard.en-progreso { border-left-color: var(--yellow); }
-.taskcard.completado  { border-left-color: var(--green); }
+.taskcard.pendiente   { border-left-color: var(--todo); }
+.taskcard.en-progreso { border-left-color: var(--doing); }
+.taskcard.completado  { border-left-color: var(--done); }
 
 .taskcard-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 13px;
   font-weight: 700;
   color: var(--text);
@@ -51,7 +40,7 @@
 }
 
 .taskcard-btn {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 11px;
   font-weight: 700;
   padding: 5px 14px;
@@ -63,10 +52,10 @@
 .taskcard-btn:hover { opacity: 0.85; transform: translateY(-1px); }
 
 .taskcard-btn.edit {
-  background: rgba(108,99,255,0.2);
-  color: var(--accent);
+  background: rgba(255,181,71,0.2);
+  color: var(--doing);
 }
 .taskcard-btn.delete {
   background: rgba(255,94,125,0.2);
-  color: var(--red);
+  color: var(--todo);
 }

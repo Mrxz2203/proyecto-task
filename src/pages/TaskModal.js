@@ -3,20 +3,38 @@
 //  Descripción: Modal para crear y editar tareas
 // ============================================================
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { ESTADOS } from "./estados";
 import "./TaskModal.css";
 
-function TaskModal({ tarea, onGuardar, onCerrar }) {
-  const [form, setForm] = useState({
-    titulo:      "",
-    descripcion: "",
-    estado:      "pendiente",
-  });
-  const [errores, setErrores] = useState({});
+const FORM_VACIO = { titulo: "", descripcion: "", estado: "pendiente" };
 
+function TaskModal({ tarea, onGuardar, onCerrar }) {
+  const [form, setForm] = useState(FORM_VACIO);
+  const [errores, setErrores] = useState({});
+  const primerInputRef = useRef(null);
+
+  // Rellena el form si es edición, lo limpia si es creación
   useEffect(() => {
-    if (tarea) setForm({ titulo: tarea.titulo, descripcion: tarea.descripcion, estado: tarea.estado });
+    if (tarea) {
+      setForm({ titulo: tarea.titulo, descripcion: tarea.descripcion, estado: tarea.estado });
+    } else {
+      setForm(FORM_VACIO);
+    }
+    setErrores({});
   }, [tarea]);
+
+  // Foco automático en el primer campo al abrir
+  useEffect(() => {
+    primerInputRef.current?.focus();
+  }, []);
+
+  // Cerrar con tecla Escape
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === "Escape") onCerrar(); };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [onCerrar]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -43,7 +61,7 @@ function TaskModal({ tarea, onGuardar, onCerrar }) {
 
         <div className="modal-header">
           <h3 className="modal-title">{tarea ? "Editar Tarea" : "Nueva Tarea"}</h3>
-          <button className="modal-close" onClick={onCerrar}>✕</button>
+          <button className="modal-close" onClick={onCerrar} aria-label="Cerrar">✕</button>
         </div>
 
         <form onSubmit={handleSubmit} noValidate>
@@ -51,9 +69,11 @@ function TaskModal({ tarea, onGuardar, onCerrar }) {
           <div className="modal-field">
             <label className="modal-label">Título</label>
             <input
+              ref={primerInputRef}
               className={`modal-input ${errores.titulo ? "error" : ""}`}
               type="text" name="titulo"
               placeholder="Ej: Diseñar navbar"
+              maxLength={60}
               value={form.titulo} onChange={handleChange}
             />
             {errores.titulo && <span className="modal-error">{errores.titulo}</span>}
@@ -65,6 +85,7 @@ function TaskModal({ tarea, onGuardar, onCerrar }) {
               className={`modal-textarea ${errores.descripcion ? "error" : ""}`}
               name="descripcion"
               placeholder="Describe la tarea..."
+              maxLength={200}
               value={form.descripcion} onChange={handleChange}
               rows={3}
             />
@@ -74,16 +95,14 @@ function TaskModal({ tarea, onGuardar, onCerrar }) {
           <div className="modal-field">
             <label className="modal-label">Estado</label>
             <div className="modal-pills">
-              {["pendiente", "en-progreso", "completado"].map(estado => (
+              {ESTADOS.map(({ value, label, emoji }) => (
                 <button
-                  key={estado}
+                  key={value}
                   type="button"
-                  className={`modal-pill ${estado} ${form.estado === estado ? "active" : ""}`}
-                  onClick={() => setForm({ ...form, estado })}
+                  className={`modal-pill ${value} ${form.estado === value ? "active" : ""}`}
+                  onClick={() => setForm({ ...form, estado: value })}
                 >
-                  {estado === "pendiente"   && "📌 Pendiente"}
-                  {estado === "en-progreso" && "🔄 En Progreso"}
-                  {estado === "completado"  && "✅ Completado"}
+                  {emoji} {label}
                 </button>
               ))}
             </div>

@@ -6,7 +6,7 @@ import Register from "./components/Register";
 import Dashboard from "./pages/Dashboard";
 import Footer from "./components/Footer";
 import Section from "./components/Section";
-
+import Perfil from "./pages/Perfil";
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +17,7 @@ function App() {
         <Route path="/register"  element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/footer" element={<Footer />} />
+        <Route path="/perfil" element={<Perfil />} />
       </Routes>
     </BrowserRouter>
   );

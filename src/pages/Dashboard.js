@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import TaskCard from "./TaskCard";
 import TaskModal from "./TaskModal";
+import { ESTADOS } from "./estados";
 import "./Dashboard.css";
 
 const TAREAS_INICIALES = [
@@ -19,7 +20,13 @@ const TAREAS_INICIALES = [
 
 function Dashboard() {
   const navigate  = useNavigate();
-  const [tareas, setTareas]       = useState(TAREAS_INICIALES);
+
+  // Carga tareas guardadas, o usa las iniciales si es la primera vez
+  const [tareas, setTareas] = useState(() => {
+    const guardadas = localStorage.getItem("tareas");
+    return guardadas ? JSON.parse(guardadas) : TAREAS_INICIALES;
+  });
+
   const [modalOpen, setModalOpen] = useState(false);
   const [tareaEdit, setTareaEdit] = useState(null);
   const [menuOpen, setMenuOpen]   = useState(false);
@@ -31,6 +38,11 @@ function Dashboard() {
   useEffect(() => {
     if (!localStorage.getItem("usuario_nombre")) navigate("/login");
   }, [navigate]);
+
+  // Persistir tareas en cada cambio
+  useEffect(() => {
+    localStorage.setItem("tareas", JSON.stringify(tareas));
+  }, [tareas]);
 
   // Cerrar dropdown al hacer clic fuera
   useEffect(() => {
@@ -68,10 +80,6 @@ function Dashboard() {
     navigate("/");
   };
 
-  const pendientes   = tareas.filter(t => t.estado === "pendiente");
-  const enProgreso   = tareas.filter(t => t.estado === "en-progreso");
-  const completadas  = tareas.filter(t => t.estado === "completado");
-
   return (
     <div className="dash-wrapper">
 
@@ -82,32 +90,31 @@ function Dashboard() {
         <div className="dash-nav-logo" onClick={() => navigate("/")}>
           Help<span>Task</span>
         </div>
-        <div className="dash-nav-links">
-          <span className="dash-nav-link">Acerca de</span>
-          <span className="dash-nav-link">Características</span>
-          <span className="dash-nav-link">Contacto</span>
-        </div>
         <div className="dash-nav-right">
           <button className="dash-agregar-btn" onClick={() => { setTareaEdit(null); setModalOpen(true); }}>
             Agregar Tarea +
           </button>
           {/* Avatar con dropdown */}
           <div className="dash-user-wrap" ref={dropdownRef}>
-            <div className="dash-avatar" onClick={() => setMenuOpen(!menuOpen)}>
+            <button
+              className="dash-avatar"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Abrir menú de usuario"
+            >
               {nombre.charAt(0).toUpperCase()}
-            </div>
-            {menuOpen && (
-              <div className="dash-dropdown">
-                <div className="dash-dropdown-name">{nombre}</div>
-                <div className="dash-dropdown-divider" />
-                <button className="dash-dropdown-item" onClick={() => setMenuOpen(false)}>
-                  👤 Ver Perfil
-                </button>
-                <button className="dash-dropdown-item danger" onClick={handleCerrarSesion}>
-                  🚪 Cerrar Sesión
-                </button>
-              </div>
-            )}
+            </button>
+           {menuOpen && (
+  <div className="dash-dropdown">
+    <div className="dash-dropdown-name">{nombre}</div>
+    <div className="dash-dropdown-divider" />
+    <button className="dash-dropdown-item" onClick={() => navigate("/perfil")}>
+      👤 Ver Perfil
+    </button>
+    <button className="dash-dropdown-item danger" onClick={handleCerrarSesion}>
+      🚪 Cerrar Sesión
+    </button>
+  </div>
+)}
           </div>
         </div>
       </nav>
@@ -116,55 +123,28 @@ function Dashboard() {
           KANBAN BOARD
           ══════════════════════════════ */}
       <div className="dash-board">
-
-        {/* PENDIENTE */}
-        <div className="kanban-col">
-          <div className="kanban-col-header">
-            <div className="kanban-col-title">
-              <span className="kanban-dot red" />
-              Pendiente
+        {ESTADOS.map(({ value, label, dot }) => {
+          const tareasDeEsteEstado = tareas.filter(t => t.estado === value);
+          return (
+            <div className="kanban-col" key={value}>
+              <div className="kanban-col-header">
+                <div className="kanban-col-title">
+                  <span className={`kanban-dot ${dot}`} />
+                  {label}
+                </div>
+                <span className="kanban-count">{tareasDeEsteEstado.length}</span>
+              </div>
+              <div className="kanban-cards">
+                {tareasDeEsteEstado.length === 0 && (
+                  <p className="kanban-empty">Sin tareas aquí todavía.</p>
+                )}
+                {tareasDeEsteEstado.map(t => (
+                  <TaskCard key={t.id} tarea={t} onEditar={handleEditar} onEliminar={handleEliminar} />
+                ))}
+              </div>
             </div>
-            <span className="kanban-count">{pendientes.length}</span>
-          </div>
-          <div className="kanban-cards">
-            {pendientes.map(t => (
-              <TaskCard key={t.id} tarea={t} onEditar={handleEditar} onEliminar={handleEliminar} />
-            ))}
-          </div>
-        </div>
-
-        {/* EN PROGRESO */}
-        <div className="kanban-col">
-          <div className="kanban-col-header">
-            <div className="kanban-col-title">
-              <span className="kanban-dot yellow" />
-              En Progreso
-            </div>
-            <span className="kanban-count">{enProgreso.length}</span>
-          </div>
-          <div className="kanban-cards">
-            {enProgreso.map(t => (
-              <TaskCard key={t.id} tarea={t} onEditar={handleEditar} onEliminar={handleEliminar} />
-            ))}
-          </div>
-        </div>
-
-        {/* COMPLETADO */}
-        <div className="kanban-col">
-          <div className="kanban-col-header">
-            <div className="kanban-col-title">
-              <span className="kanban-dot green" />
-              Completado
-            </div>
-            <span className="kanban-count">{completadas.length}</span>
-          </div>
-          <div className="kanban-cards">
-            {completadas.map(t => (
-              <TaskCard key={t.id} tarea={t} onEditar={handleEditar} onEliminar={handleEliminar} />
-            ))}
-          </div>
-        </div>
-
+          );
+        })}
       </div>
 
       {/* ══════════════════════════════
