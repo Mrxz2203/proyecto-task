@@ -7,6 +7,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Welcome.css";
 import Footer from "./Footer";
+import Section from "./Section";
+
+const steps = [
+  { n: "01", label: "Por hacer", state: "todo", text: "Anota lo que tienes que hacer, sin fricción." },
+  { n: "02", label: "Haciendo", state: "doing", text: "Mueve la tarjeta cuando te pongas en marcha." },
+  { n: "03", label: "Hecho", state: "done", text: "Ciérrala. Así de simple, cada día." },
+];
 
 function Welcome() {
   const navigate = useNavigate();
@@ -20,21 +27,19 @@ function Welcome() {
   return (
     <div className="welcome-wrapper">
 
-      {/* ══════════════════════════════
-          NAVBAR
-          ══════════════════════════════ */}
+      {/* NAVBAR */}
       <nav className="welcome-nav">
         <div className="welcome-nav-logo">
           Help<span>Task</span>
         </div>
         <div className="welcome-nav-links">
-          <a href="#features" className="welcome-nav-link">Acerca de</a>
+          <a href="#proceso" className="welcome-nav-link">Cómo funciona</a>
           <a href="#features" className="welcome-nav-link">Características</a>
-          <a href="#features" className="welcome-nav-link">Contacto</a>
+          <a href="#contacto" className="welcome-nav-link">Contacto</a>
         </div>
         <div className="welcome-nav-btns">
           <button className="welcome-btn-ghost" onClick={() => navigate("/login")}>
-            Iniciar Sesion
+            Iniciar sesión
           </button>
           <button className="welcome-btn-solid" onClick={() => navigate("/register")}>
             Empezar →
@@ -42,85 +47,69 @@ function Welcome() {
         </div>
       </nav>
 
-      {/* ══════════════════════════════
-          HERO
-          ══════════════════════════════ */}
+      {/* HERO */}
       <section className="welcome-hero">
-
-        {/* LEFT */}
         <div className={`welcome-hero-left ${loaded ? "show" : ""}`}>
           <h1 className="welcome-title">
-            Gestiona<br />
-            tus tareas<br />
-            con<br />
-            <span className="title-accent">claridad</span><br />
-            <span className="title-accent2">y foco</span>
+            Gestiona tus tareas<br />
+            con <span className="title-accent">claridad</span><br />
+            y <span className="title-accent2">foco</span>
           </h1>
           <p className="welcome-desc">
-            HelpTask te ayuda a organizar, priorizar
-            y completar tus tareas diarias de forma
-            visual e intuitiva. Tu productividad,
+            HelpTask te ayuda a organizar, priorizar y completar tus
+            tareas diarias de forma visual e intuitiva. Tu productividad,
             transformada.
           </p>
+          <button className="welcome-cta-btn" onClick={() => navigate("/register")}>
+            Crear cuenta →
+          </button>
         </div>
 
-        {/* RIGHT — Imagen Web.png */}
-<div className={`welcome-hero-right ${loaded ? "show" : ""}`}>
-  <img src={require("../assets/Web.png")} alt="TaskFlow preview" className="welcome-web-img" />
-  <button
-    className="welcome-cta-btn"
-    onClick={() => navigate("/register")}
-  >
-    Crear Cuenta →
-  </button>
-</div>
-
+        {/* Tablero Kanban real como mockup */}
+        <div className={`welcome-hero-right ${loaded ? "show" : ""}`}>
+          <div className="board-mock">
+            <div className="board-col">
+              <div className="board-col-head">
+                <span className="dot dot-todo" />Por hacer
+              </div>
+              <div className="board-card">Diseñar login</div>
+              <div className="board-card">Revisar PR #12</div>
+            </div>
+            <div className="board-col">
+              <div className="board-col-head">
+                <span className="dot dot-doing" />Haciendo
+              </div>
+              <div className="board-card ghost">Conectar API</div>
+            </div>
+            <div className="board-col">
+              <div className="board-col-head">
+                <span className="dot dot-done" />Hecho
+              </div>
+              <div className="board-card">Config JWT</div>
+              <div className="board-card dragging">Conectar API</div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* ══════════════════════════════
-          FEATURES STRIP
-          ══════════════════════════════ */}
-     <div className="welcome-features" id="features">
-  <div className="feature-item">
-    <span className="feature-icon">
-      <img src={require("../assets/kanban.png")} alt="kanban" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
-    </span>
-    <div className="feature-text">
-      <strong>Kanban Visual</strong>
-      3 estados en tiempo real
-    </div>
-  </div>
-  <div className="feature-item">
-    <span className="feature-icon">
-      <img src={require("../assets/auth.png")} alt="auth" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
-    </span>
-    <div className="feature-text">
-      <strong>Autenticación</strong>
-      Login seguro con JWT
-    </div>
-  </div>
-  <div className="feature-item">
-    <span className="feature-icon">
-      <img src={require("../assets/rapido.png")} alt="rapido" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
-    </span>
-    <div className="feature-text">
-      <strong>Rápido y simple</strong>
-      Crea tareas en segundos
-    </div>
-  </div>
-  <div className="feature-item">
-    <span className="feature-icon">
-      <img src={require("../assets/espacio.png")} alt="espacio" style={{ width: '2rem', height: '2rem', objectFit: 'contain' }} />
-    </span>
-    <div className="feature-text">
-      <strong>Tu espacio</strong>
-      Solo ves tus tareas
-    </div>
-  </div>
-</div>
-<Footer />
-    </div>
+      {/* PROCESO — mismos 3 estados, ahora como narrativa */}
+      <section className="welcome-process" id="proceso">
+        {steps.map((s) => (
+          <div className="process-step" key={s.n}>
+            <span className={`process-num process-${s.state}`}>{s.n}</span>
+            <div>
+              <strong>{s.label}</strong>
+              <p>{s.text}</p>
+            </div>
+          </div>
+        ))}
+      </section>
 
+      {/* CARACTERÍSTICAS — componente propio */}
+      <Section />
+
+      <Footer />
+    </div>
   );
 }
 

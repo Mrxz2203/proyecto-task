@@ -1,0 +1,20 @@
+/* ============================================================
+   Archivo: src/theme.css
+   Tokens visuales compartidos — HelpTask
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg:       #101114;
+  --surface:  #16171C;
+  --surface2: #1C1E24;
+  --border:   rgba(255,255,255,0.08);
+  --text:     #EDEDF2;
+  --text-sub: #888B98;
+
+  /* alineado 1:1 con Dashboard.js */
+  --todo:  #FF5E7D;  /* pendiente */
+  --doing: #FFB547;  /* en-progreso */
+  --done:  #00D4AA;  /* completado */
+}
